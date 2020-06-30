@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-facade-xml type="seed-initial">
+    <moqui.security.ArtifactGroup artifactGroupId="DON_APP"
+                                  description="Donation App(via root screen)"/>
+    <moqui.security.ArtifactGroupMember artifactGroupId="DON_APP"
+                                        artifactName="component://donation/screen/donation.xml"
+                                        artifactTypeEnumId="AT_XML_SCREEN" inheritAuthz="Y"/>
+    <moqui.security.ArtifactAuthz artifactAuthzId="Don_ALL"
+                                  userGroupId="ALL_USERS" artifactGroupId="DON_APP"
+                                  authzTypeEnumId="AUTHZT_ALWAYS" authzActionEnumId="AUTHZA_ALL"/>
+</entity-facade-xml>

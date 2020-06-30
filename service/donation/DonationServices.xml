@@ -1,0 +1,55 @@
+<services>
+    <service verb="create" noun="Person">
+        <in-parameters>
+            <parameter name="emailAddress">
+                <text-email/>
+            </parameter>
+            <parameter name="firstName" required="true"/>
+            <parameter name="middleName" />
+            <parameter name="lastName" required="true"/>
+
+            <parameter name="address1" />
+            <parameter name="unitNumber" />
+            <parameter name="city" />
+            <parameter name="postalCode" />
+
+            <parameter name="creditCardTypeEnumId" />
+            <parameter name="cardNumber" required="true">
+                <credit-card/>
+            </parameter>
+            <parameter name="cardSecurityCode" required="true"/>
+
+            <parameter name="expireYear" required="true" />
+            <parameter name="expireMonth" required="true"/>
+
+            <parameter name="amount" required="true"/>
+           
+            <parameter name="contentTypeEnumId"/>
+            
+
+        </in-parameters>
+        <out-parameters><parameter name="partyId" required="true"/> </out-parameters>
+        <out-parameters><parameter name="paymentId" required="true"/> </out-parameters>
+        
+        <actions>
+
+            <service-call name="mantle.party.PartyServices.create#PersonCustomer" in-map="context + [partyTypeEnumId:'PtyPerson']" out-map="context"/>
+            <set field="fromPartyId" from="partyId"/>
+            <set field="toPartyId" default-value="ORG_ZIZI_BD"/>
+
+            <set field="paymentGatewayConfigId" value="StripeDemo"/>
+            <set field="paymentGatewayTypeEnumId" value="StripeDemo"/>
+            <set field="paymentInstrumentEnumId" value="PiCreditCard"/>
+
+            <set field="firstNameOnAccount" from="firstName"/>
+            <set field="lastNameOnAccount" from="lastName"/>
+
+            <service-call name="mantle.account.PaymentServices.create#Payment" in-map="context + [partyTypeEnumId:'PtyPerson']" out-map="context"/>
+            <set field="paymentId" from="paymentId"/>     
+           
+            <service-call name="mantle.account.PaymentServices.create#PaymentContent" in-map="context + [partyTypeEnumId:'PtyPerson']"/>
+            <service-call name="Stripe.StripePaymentServices.authorizeAndCapture#Payment" in-map="context"/>
+
+        </actions>
+    </service>
+</services>

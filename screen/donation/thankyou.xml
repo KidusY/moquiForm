@@ -1,0 +1,13 @@
+<screen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-2.1.xsd"
+        require-authentication="anonymous-all">
+
+    <widgets>
+        <render-mode>
+            <text type="html,vuet" location="component://donation/screen/donation/thankyou.html"/>
+        </render-mode>
+
+
+    </widgets>
+
+</screen>

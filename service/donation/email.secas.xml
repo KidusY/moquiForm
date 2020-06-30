@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<secas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/service-eca-2.1.xsd">
+    <seca id="" service="create#Person" when="tx-commit">
+
+        <actions>
+
+        </actions>
+    </seca>
+</secas>
